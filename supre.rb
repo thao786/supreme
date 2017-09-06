@@ -3,7 +3,7 @@ require 'selenium-webdriver'
 def buy(url)
   driver = Selenium::WebDriver.for :chrome
 
-  driver.get "http://supremenewyork.com/shop/accessories/kfsztd59u/a8vl0pj2e"
+  driver.get url
 
   submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']") #fix this xpath
   unless  submit_btn.nil?
