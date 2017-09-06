@@ -2,8 +2,7 @@ require 'open-uri'
 require 'Nokogiri'
 require 'json'
 
-hots = "Contrast Stitch Pullover
-Digi Camo"
+hots = ["Carry Knife", "Piping Track Jacket", "Blimp", "Half Zip Sweatshirt"]
 
 urls = []
 
