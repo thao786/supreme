@@ -26,18 +26,13 @@ def buy(url)
       #proceed to checkout---------------------------
       submit_btn.click
 
-      driver.execute_script "window.open('_blank', 'payment')"
-      driver.switch_to.window 'payment'
+      # driver.execute_script "window.open('_blank', 'payment')"
+      # driver.switch_to.window 'payment'
       driver.get "http://supremenewyork.com/checkout"
 
     # auto-fill---------------------------
     option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
     option_country.click
-
-    checkboxes = driver.find_elements(:class, "icheckbox_minimal")
-    checkboxes.each do |ch|
-      ch.click
-    end
 
     input_form = driver.execute_script("
         var credit_info = ['Phuong-Thuy Nguyen', 
@@ -60,6 +55,7 @@ def buy(url)
               for (var i=0; i < inputs.length; i++){
                     inputs[i].value = credit_info[i];
               }
+              $('.icheckbox_minimal')[1].click();
               var selects = document.getElementsByTagName('select');
               selects[0].value = card_info[0];
               selects[2].value = card_info[1];
@@ -75,4 +71,4 @@ def buy(url)
   driver.quit
 end
 
-buy("http://supremenewyork.com/shop/accessories/kfsztd59u/a8vl0pj2e")
+buy("http://supremenewyork.com/shop/shirts/s82lw3a9b/mqgh86z2p")
