@@ -7,6 +7,7 @@ hots = ["Carry Knife",
 	"Piping Track Jacket", 
 	"Blimp", 
 	"Half Zip Sweatshirt"]
+	["Best in the world", "Leather front", "Polo crewneck"]
 @all_url = 'http://www.supremenewyork.com/shop'
 
 
