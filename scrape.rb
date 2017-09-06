@@ -1,10 +1,23 @@
 require 'open-uri'
 require 'Nokogiri'
 require 'json'
+require './supre.rb'
 
-hots = ["Carry Knife", "Piping Track Jacket", "Blimp", "Half Zip Sweatshirt"]
+hots = ["Carry Knife", 
+	"Piping Track Jacket", 
+	"Blimp", 
+	"Half Zip Sweatshirt"]
 
-urls = []
+def hot? (title)
+	hots.each { |item|
+		if title.include? item
+			p title
+			return true
+		end
+	}
+	return false
+end
+
 
 all_url = 'http://www.supremenewyork.com/shop'
 all_items_doc = Nokogiri::HTML(open(all_url))
@@ -18,17 +31,21 @@ list.each { |link|
 
 	# get the title of the item
 	div = doc.css '#details h1' # the containing div has id #details
-	text = div[0].text
+	title = div[0].text
 
-	if hots.include? text # if the title is in hot list
-		urls << item_url
+	color_p = doc.css '#details p'
+	color = color_p[0].text.downcase
 
-		# start scraping
-		
+	size = doc.css('option')[0].text.downcase
+
+	if color == 'black' && size != 'xlarge'
+		if hot?(title) # if the title is in hot list
+			p item_url
+			buy(item_url) # start scraping
+		end
 	end
 }
 
-p urls
 
 
 
