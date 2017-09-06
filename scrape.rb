@@ -28,8 +28,8 @@ end
 
 # count down till page has more items
 while count_all < 24 do 
-	sleep 1
 	p 'no update'
+	sleep 1
 end
 
 
