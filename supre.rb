@@ -77,4 +77,4 @@ def buy(url)
   driver.quit
 end
 
-buy("http://supremenewyork.com/shop/accessories/kfsztd59u/a8vl0pj2e")
+# buy("http://supremenewyork.com/shop/accessories/kfsztd59u/a8vl0pj2e")

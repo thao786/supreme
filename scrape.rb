@@ -7,6 +7,8 @@ hots = ["Carry Knife",
 	"Piping Track Jacket", 
 	"Blimp", 
 	"Half Zip Sweatshirt"]
+@all_url = 'http://www.supremenewyork.com/shop'
+
 
 def hot? (title)
 	hots.each { |item|
@@ -18,9 +20,20 @@ def hot? (title)
 	return false
 end
 
+def count_all
+	doc = Nokogiri::HTML(open(@all_url))
+	list = doc.css '.new_item_tag'
+	list.length
+end
 
-all_url = 'http://www.supremenewyork.com/shop'
-all_items_doc = Nokogiri::HTML(open(all_url))
+# count down till page has more items
+while count_all < 24 do 
+	sleep 1
+	p 'no update'
+end
+
+
+all_items_doc = Nokogiri::HTML(open(@all_url))
 list = all_items_doc.css '.new_item_tag'
 
 list.each { |link|
