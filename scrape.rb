@@ -4,23 +4,10 @@ require 'open-uri'
 require 'Nokogiri'
 require 'json'
 require './supre.rb'
+require './profiles.rb'
 
 reverse = ARGV[0]
 run_again = ARGV[1]
-
-p reverse 
-p run_again
-
-profile1 = {:name => '', 
-	:email => 'roseskindergarten@gmail.com', 
-	:phone => '6475152025', # don't change
-	:address => '', 
-	:zipcode => 'm4r 1v2',
-	:city => 'Toronto', 
-	:card => '', 
-	:security => '', :state => 'ON', 
-	:expire_month => '', 
-	:expire_year => ''}
 
 
 @hots = ["Carry Knife", 
@@ -47,8 +34,9 @@ def count_all
 	list.length
 end
 
+p count_all
 # count down till page has more items
-while count_all < 24 do 
+while count_all == 106 do 
 	p 'no update'
 	sleep 1
 end
@@ -107,17 +95,6 @@ def scrape (list, profile)
 end
 
 scrape list, profile1
-
-profile2 = {:name => '', 
-	:email => 'roseskindergarten@gmail.com', 
-	:phone => '6475152025', # don't change
-	:address => '', 
-	:zipcode => '',
-	:card => '', 
-	:security => '', :state => 'ON', 
-	:city => 'Toronto', 
-	:expire_month => '', 
-	:expire_year => ''}
 
 if run_again == 1
 	scrape(list, profile2)
