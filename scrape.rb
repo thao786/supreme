@@ -9,7 +9,6 @@ require './profiles.rb'
 reverse = ARGV[0]
 run_again = ARGV[1]
 
-
 @hots = ["Carry Knife", 
 	"Piping Track Jacket", 
 	"Blimp", 
@@ -36,11 +35,10 @@ end
 
 p count_all
 # count down till page has more items
-while count_all == 106 do 
+while count_all == 100 do 
 	p 'no update'
 	sleep 1
 end
-
 
 all_items_doc = Nokogiri::HTML(open(@all_url))
 list = all_items_doc.css 'article a'
@@ -94,10 +92,10 @@ def scrape (list, profile)
 	}
 end
 
-scrape list, profile1
+scrape list, @profile1
 
 if run_again == 1
-	scrape(list, profile2)
+	scrape(list, @profile2)
 end
 
 
