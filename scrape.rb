@@ -16,7 +16,7 @@ run_again = ARGV[1]
 
 # @hots = ["Best in the world", "Leather front", "Polo crewneck"]
 @all_url = 'http://www.supremenewyork.com/shop/new'
-urls = []
+@urls = []
 
 def hot? (title)
 	@hots.each { |item|
@@ -81,7 +81,7 @@ def scrape (list, profile)
 			end
 
 			if hot?(title) # if the title is in hot list
-				urls << item_url
+				@urls << item_url
 				begin
 					buy(item_url, profile) # start scraping
 				rescue  
@@ -95,7 +95,7 @@ end
 scrape list, @profile1
 
 if run_again == 1
-	urls.each { |item_url|
+	@urls.each { |item_url|
 		buy(item_url, @profile2)
 	}
 end

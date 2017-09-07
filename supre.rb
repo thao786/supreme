@@ -34,7 +34,7 @@ def buy(url, profile)
     option_country.click
 
     input_form = driver.execute_script("
-        var credit_info = ['#{profile[:name]}', 
+              var credit_info = ['#{profile[:name]}', 
                     '#{profile[:email]}', 
                     '#{profile[:phone]}', 
                     '#{profile[:address]}', 
@@ -43,7 +43,9 @@ def buy(url, profile)
                     '#{profile[:city]}', 
                     '#{profile[:card]}', 
                     '#{profile[:security]}'];             
-              var card_info = ['#{profile[:state]}','#{profile[:expire_month]}','#{profile[:expire_year]}'];
+              var card_info = ['#{profile[:state]}',
+                    '#{profile[:expire_month]}',
+                    '#{profile[:expire_year]}'];
               
               var inputs_prototype = document.getElementsByTagName('input');
               var inputs = [];
