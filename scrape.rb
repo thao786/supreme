@@ -51,7 +51,6 @@ def scrape (list, profile)
 		# get the title of the item
 		div = doc.css '#details h1' # the containing div has id #details
 		title = div[0].text
-p title
 
 		if hot?(title) # if the title is in hot list
 			size_options = doc.css '#s option'
