@@ -5,14 +5,10 @@ require 'Nokogiri'
 require 'json'
 require './supre.rb'
 require './profiles.rb'
+require './data.rb'
 
 reverse = ARGV[0]
 run_again = ARGV[1]
-
-@hots = ["Carry Knife", 
-	"Piping Track Jacket", 
-	"Blimp", 
-	"Half Zip Sweatshirt"]
 
 # @hots = ["Best in the world", "Leather front", "Polo crewneck"]
 @all_url = 'http://www.supremenewyork.com/shop/new'
@@ -34,7 +30,7 @@ def count_all
 end
 
 # count down till page has more items
-while count_all == 106 do 
+while count_all == @new_count do 
 	p 'no update'
 	sleep 1
 end
