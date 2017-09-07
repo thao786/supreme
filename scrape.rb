@@ -33,7 +33,6 @@ def count_all
 	list.length
 end
 
-p count_all
 # count down till page has more items
 while count_all == 106 do 
 	p 'no update'
@@ -47,7 +46,7 @@ if reverse == '1'
 	list = list.reverse
 end
 
-def scrape (list, profile)
+def scrape (list, profile) 
 	list.each { |link|
 		href = link["href"]
 		item_url = "http://www.supremenewyork.com#{href}"
@@ -56,31 +55,32 @@ def scrape (list, profile)
 		# get the title of the item
 		div = doc.css '#details h1' # the containing div has id #details
 		title = div[0].text
+p title
 
-		size_options = doc.css '#s option'
-		if size_options.length > 0
-			color_p = doc.css '#details p'
-			if color_p.length > 1
-				color = color_p[0].text.downcase
-				if color != 'black'
-					break
-				end
-			end
-		end
-
-		# check sold out
-		sold_btns = doc.css('.button.sold-out')
-		if sold_btns.length == 0
-			size_options = doc.css('option')
+		if hot?(title) # if the title is in hot list
+			size_options = doc.css '#s option'
 			if size_options.length > 0
-				size = size_options[0].text.downcase
-
-				if size == 'xlarge' 
-					break
+				color_p = doc.css '#details p'
+				if color_p.length > 1
+					color = color_p[0].text.downcase
+					if color != 'black'
+						break
+					end
 				end
 			end
 
-			if hot?(title) # if the title is in hot list
+			# check sold out
+			sold_btns = doc.css('.button.sold-out')
+			if sold_btns.length == 0
+				size_options = doc.css('option')
+				if size_options.length > 0
+					size = size_options[0].text.downcase
+
+					if size == 'xlarge' 
+						break
+					end
+				end
+				
 				@urls << item_url
 				begin
 					buy(item_url, profile) # start scraping
