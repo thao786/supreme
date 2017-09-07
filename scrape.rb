@@ -35,7 +35,7 @@ end
 
 p count_all
 # count down till page has more items
-while count_all == 100 do 
+while count_all == 106 do 
 	p 'no update'
 	sleep 1
 end
