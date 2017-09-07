@@ -95,7 +95,9 @@ end
 scrape list, @profile1
 
 if run_again == 1
-	scrape(list, @profile2)
+	urls.each { |item_url|
+		buy(item_url, @profile2)
+	}
 end
 
 
