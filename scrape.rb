@@ -3,18 +3,18 @@ require 'Nokogiri'
 require 'json'
 require './supre.rb'
 
-hots = ["Carry Knife", 
+@hots = ["Carry Knife", 
 	"Piping Track Jacket", 
 	"Blimp", 
 	"Half Zip Sweatshirt"]
-	["Best in the world", "Leather front", "Polo crewneck"]
-@all_url = 'http://www.supremenewyork.com/shop'
+
+# @hots = ["Best in the world", "Leather front", "Polo crewneck"]
+@all_url = 'http://www.supremenewyork.com/shop/new'
 
 
 def hot? (title)
-	hots.each { |item|
-		if title.include? item
-			p title
+	@hots.each { |item|
+		if title.downcase.include? item.downcase
 			return true
 		end
 	}
@@ -23,7 +23,7 @@ end
 
 def count_all
 	doc = Nokogiri::HTML(open(@all_url))
-	list = doc.css '.new_item_tag'
+	list = doc.css 'article a'
 	list.length
 end
 
@@ -35,11 +35,10 @@ end
 
 
 all_items_doc = Nokogiri::HTML(open(@all_url))
-list = all_items_doc.css '.new_item_tag'
+list = all_items_doc.css 'article a'
 
 list.each { |link|
-	# check if this item is hot
-	href = link.parent["href"]
+	href = link["href"]
 	item_url = "http://www.supremenewyork.com#{href}"
 	doc = Nokogiri::HTML(open(item_url))
 
@@ -48,13 +47,26 @@ list.each { |link|
 	title = div[0].text
 
 	color_p = doc.css '#details p'
-	color = color_p[0].text.downcase
+	if color_p.length > 1
+		color = color_p[0].text.downcase
+		if color != 'black'
+			break
+		end
+	end
 
-	size = doc.css('option')[0].text.downcase
+	# check sold out
+	sold_btns = doc.css('.button.sold-out')
+	if sold_btns.length == 0
+		size_options = doc.css('option')
+		if size_options.length > 0
+			size = size_options[0].text.downcase
 
-	if color == 'black' && size != 'xlarge'
+			if size == 'xlarge' 
+				break
+			end
+		end
+
 		if hot?(title) # if the title is in hot list
-			p item_url
 			buy(item_url) # start scraping
 		end
 	end

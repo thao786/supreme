@@ -2,7 +2,6 @@ require 'selenium-webdriver'
 
 def buy(url)
   driver = Selenium::WebDriver.for :chrome
-
   driver.get url
 
   submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']") #fix this xpath
@@ -71,4 +70,4 @@ def buy(url)
   driver.quit
 end
 
-buy("http://supremenewyork.com/shop/shirts/s82lw3a9b/mqgh86z2p")
+# buy("http://www.supremenewyork.com/shop/tops-sweaters/pdv31bow6/qczlpsyt1")
