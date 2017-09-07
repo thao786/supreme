@@ -1,6 +1,6 @@
 require 'selenium-webdriver'
 
-def buy(url)
+def buy(url, profile)
   driver = Selenium::WebDriver.for :chrome
   driver.get url
 
@@ -12,7 +12,7 @@ def buy(url)
           if opt.text.downcase == "small"
             next_size = options[index+1].text
             if next_size.downcase == "medium" # check if next size is medium
-              options[index+1].click
+              options[index + 1].click
             end
 
             break
@@ -22,28 +22,29 @@ def buy(url)
         end
     end
 
-      #proceed to checkout---------------------------
-      submit_btn.click
+    #proceed to checkout---------------------------
+    submit_btn.click
 
-      # driver.execute_script "window.open('_blank', 'payment')"
-      # driver.switch_to.window 'payment'
-      driver.get "http://supremenewyork.com/checkout"
+    # driver.execute_script "window.open('_blank', 'payment')"
+    # driver.switch_to.window 'payment'
+    driver.get "http://supremenewyork.com/checkout"
 
     # auto-fill---------------------------
     option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
     option_country.click
 
     input_form = driver.execute_script("
-        var credit_info = ['Phuong-Thuy Nguyen', 
-                    'xiaoyuner2014@gmail.com', 
-                    '9059651995', 
-                    '2101-411 Duplex Ave', 
+        var credit_info = ['#{profile[:name]}', 
+                    '#{profile[:email]}', 
+                    '#{profile[:phone]}', 
+                    '#{profile[:address]}', 
                     '', 
-                    'M4R1V2', 
-                    'Toronto', 
-                    '4111111111111111', 
-                    '222'];             
-              var card_info = ['ON','01','2019'];
+                    '#{profile[:zipcode]}', 
+                    '#{profile[:city]}', 
+                    '#{profile[:card]}', 
+                    '#{profile[:security]}'];             
+              var card_info = ['#{profile[:state]}','#{profile[:expire_month]}','#{profile[:expire_year]}'];
+              
               var inputs_prototype = document.getElementsByTagName('input');
               var inputs = [];
               for (var i=0; i < inputs_prototype.length; i++){
