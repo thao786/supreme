@@ -67,7 +67,11 @@ list.each { |link|
 		end
 
 		if hot?(title) # if the title is in hot list
-			buy(item_url) # start scraping
+			begin
+				buy(item_url) # start scraping
+			rescue  
+			    p 'scraping failed'
+			end  
 		end
 	end
 }
