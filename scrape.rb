@@ -1,17 +1,21 @@
+#!/usr/bin/ruby
+
 require 'open-uri'
 require 'Nokogiri'
 require 'json'
 require './supre.rb'
 
-reverse? = ARGV[0]
-run_again? = ARGV[1]
+reverse = ARGV[0]
+run_again = ARGV[1]
 
+p reverse 
+p run_again
 
 profile1 = {:name => '', 
 	:email => 'roseskindergarten@gmail.com', 
 	:phone => '6475152025', # don't change
 	:address => '', 
-	:zipcode => '',
+	:zipcode => 'm4r 1v2',
 	:city => 'Toronto', 
 	:card => '', 
 	:security => '', :state => 'ON', 
@@ -53,11 +57,11 @@ end
 all_items_doc = Nokogiri::HTML(open(@all_url))
 list = all_items_doc.css 'article a'
 
-if reverse? == '1'
+if reverse == '1'
 	list = list.reverse
 end
 
-def scrape (list)
+def scrape (list, profile)
 	list.each { |link|
 		href = link["href"]
 		item_url = "http://www.supremenewyork.com#{href}"
@@ -93,7 +97,7 @@ def scrape (list)
 			if hot?(title) # if the title is in hot list
 				urls << item_url
 				begin
-					buy(item_url) # start scraping
+					buy(item_url, profile) # start scraping
 				rescue  
 				    p 'scraping failed'
 				end  
@@ -102,21 +106,21 @@ def scrape (list)
 	}
 end
 
-scrape (list, profile1)
+scrape list, profile1
 
 profile2 = {:name => '', 
 	:email => 'roseskindergarten@gmail.com', 
 	:phone => '6475152025', # don't change
 	:address => '', 
 	:zipcode => '',
-	:city => 'Toronto', 
 	:card => '', 
 	:security => '', :state => 'ON', 
+	:city => 'Toronto', 
 	:expire_month => '', 
 	:expire_year => ''}
 
-if run_again? == 1
-	scrape (list, profile2)
+if run_again == 1
+	scrape(list, profile2)
 end
 
 
