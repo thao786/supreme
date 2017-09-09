@@ -17,7 +17,7 @@ category = 'sweatshirts'
 def search(title, category)
 	driver = Selenium::WebDriver.for :chrome
 
-	sign into Google
+	# sign into Google
 	driver.get 'https://gmail.com' 
 	driver.find_element(:id => 'identifierId').click
 	sleep 1
