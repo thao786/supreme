@@ -1,11 +1,21 @@
 require 'selenium-webdriver'
 
-def buy(url, profile)
-  driver = Selenium::WebDriver.for :chrome
+def buy(url, profile, driver)
   driver.get url
 
-  submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']") #fix this xpath
-  unless  submit_btn.nil?
+  begin
+    submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
+  rescue  
+      p 'sold out'
+      return
+  end 
+  
+
+  if submit_btn.nil?
+    p 'no add to cart button'
+    driver.quit
+    return
+  else
     options = driver.find_elements(:tag_name, "option")
     unless options.nil?
       options.each_with_index do |opt, index| # check size available
