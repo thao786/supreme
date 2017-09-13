@@ -9,6 +9,7 @@ require './profiles.rb'
 require './data.rb'
 
 @base_url = 'http://www.supremenewyork.com/shop/all/'
+@threads = []
 
 def search(title, category)
 	found = false
@@ -21,11 +22,15 @@ def search(title, category)
     driver.switch_to.window 'buy'
 
 	while found == false
-		cat_url = "#{@base_url}#{category}"
-		driver.get cat_url
+		Thread.new {
+			driver.get "#{@base_url}#{category}"
+		}
+
+		sleep 1
 		links = []
 		begin
 			links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
+			# check sold out tag and shirt color
 
 			href = links[0].attribute("href")
 			p "gonna buy #{title}"
@@ -51,8 +56,6 @@ def signinGG(driver)
 	sleep 1
 	driver.action.send_keys(:return).perform
 end
-
-@threads = []
 
 @hots.each { |item|
 	t = Thread.new {
