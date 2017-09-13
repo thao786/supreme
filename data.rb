@@ -1,7 +1,3 @@
-@hots = ["Carry Knife", 
-	"Piping Track Jacket", 
-	"Blimp", 
-	"Half Zip Sweatshirt"]
-
-
-@new_count = 106
+@hots = [{:title => "Carry Knife", :cat => 'accessories'}, 
+	{:title => "Brush Logo Hooded", :cat => 'sweatshirts'}, 
+	]
