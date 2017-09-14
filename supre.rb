@@ -27,6 +27,7 @@ def buy(url, profile, driver)
   end
 
   #proceed to checkout---------------------------
+  sleep 1
   submit_btn.click
 
   # driver.execute_script "window.open('_blank', 'payment')"

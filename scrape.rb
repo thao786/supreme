@@ -18,10 +18,10 @@ def search(title, category)
 	driver = Selenium::WebDriver.for :chrome
 
 	# sign into Google
-	# signinGG driver 
+	signinGG driver 
 
-	# driver.execute_script "window.open('_blank', 'buy')"
- #    driver.switch_to.window 'buy'
+	driver.execute_script "window.open('_blank', 'buy')"
+    driver.switch_to.window 'buy'
 
 	while found == false
 		begin
@@ -33,7 +33,7 @@ def search(title, category)
 		end
 
 		links = []
-		# begin
+		begin
 			links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
 			found = true
 
@@ -63,10 +63,10 @@ def search(title, category)
 				}
 				p items
 			end
-		# rescue
-		#     p "cant find #{title} yet"
-		#     sleep 1
-		# end 
+		rescue
+		    p "cant find #{title} yet"
+		    sleep 1
+		end 
 	end
 	driver.quit
 end
