@@ -37,7 +37,11 @@ def search(title, category)
 			links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
 			found = true
 
-			if links.length == 1
+			if links.length == 0
+				found = false
+				p "cant find #{title} yet"
+		    	sleep 1
+			elsif links.length == 1
 				href = links[0].attribute("href")
 				p "gonna buy #{title}"
 				buy(href, @profile1, driver)
