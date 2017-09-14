@@ -46,7 +46,6 @@ def search(title, category)
 				links.each { |link|
 					href = link.attribute("href")
 					uri = URI.parse(href).request_uri
-					p uri
 					item_links = driver.find_elements(:css => "a[href='#{uri}']")
 					color = item_links.last.text
 					items << {:color => color, :href => href}
