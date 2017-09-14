@@ -10,6 +10,7 @@ require './data.rb'
 
 @base_url = 'http://www.supremenewyork.com/shop/all/'
 @threads = []
+@colors = ['black', 'white', 'red']
 
 def search(title, category)
 	found = false
