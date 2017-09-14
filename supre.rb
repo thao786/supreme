@@ -35,8 +35,8 @@ def buy(url, profile, driver)
   driver.get "http://supremenewyork.com/checkout"
 
   # auto-fill---------------------------
-  option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
-  option_country.click
+  # option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
+  # option_country.click
 
   input_form = driver.execute_script("
             var credit_info = ['#{profile[:name]}', 
