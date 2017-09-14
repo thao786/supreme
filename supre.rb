@@ -7,8 +7,7 @@ def buy(url, profile, driver)
     submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
   rescue  
       p 'sold out'
-      driver.quit
-      return
+      return 'fail'
   end 
 
   options = driver.find_elements(:tag_name, "option")
@@ -22,7 +21,7 @@ def buy(url, profile, driver)
 
           break
         elsif opt.text.downcase == "xlarge"
-          driver.quit
+          return 'fail'
         end
       end
   end
@@ -74,7 +73,7 @@ def buy(url, profile, driver)
   puts 'hit enter when done: '
   gets
 
-  driver.quit
+  'ok'
 end
 
 # buy("http://www.supremenewyork.com/shop/tops-sweaters/pdv31bow6/qczlpsyt1")

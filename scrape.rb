@@ -4,6 +4,7 @@ require 'open-uri'
 require 'Nokogiri'
 require 'json'
 require 'selenium-webdriver'
+require 'uri'
 require './supre.rb'
 require './profiles.rb'
 require './data.rb'
@@ -19,8 +20,8 @@ def search(title, category)
 	# sign into Google
 	# signinGG driver 
 
-	driver.execute_script "window.open('_blank', 'buy')"
-    driver.switch_to.window 'buy'
+	# driver.execute_script "window.open('_blank', 'buy')"
+ #    driver.switch_to.window 'buy'
 
 	while found == false
 		begin
@@ -32,21 +33,44 @@ def search(title, category)
 		end
 
 		links = []
-		begin
+		# begin
 			links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
-			# check sold out tag and shirt color
-
-			href = links[0].attribute("href")
-			p "gonna buy #{title}"
 			found = true
-			buy(href, @profile1, driver)
-		rescue  
-		    p "cant find #{title} yet"
-		    sleep 1
-		end 
-	end
-end
 
+			if links.length == 1
+				href = links[0].attribute("href")
+				p "gonna buy #{title}"
+				buy(href, @profile1, driver)
+			else # check shirt color
+				items = []
+				links.each { |link|
+					href = link.attribute("href")
+					uri = URI.parse(href).request_uri
+					p uri
+					item_links = driver.find_elements(:css => "a[href='#{uri}']")
+					color = item_links.last.text
+					items << {:color => color, :href => href}
+				}
+				items.sort! { |x,y| score(x) <=> score(y)}
+				items.each { |item|
+					if @colors.include? item[:color].downcase
+						p "gonna buy #{title} : #{item[:color]}"
+						result = buy(item[:href], @profile1, driver)
+
+						if result == 'ok'
+							break
+						end
+					end
+				}
+				p items
+			end
+		# rescue
+		#     p "cant find #{title} yet"
+		#     sleep 1
+		# end 
+	end
+	driver.quit
+end
 
 def signinGG(driver)
 	driver.get 'https://gmail.com' 
@@ -60,6 +84,20 @@ def signinGG(driver)
 	sleep 1
 	driver.action.send_keys(:return).perform
 end
+
+def score(x)
+	case x[:color].downcase
+      when 'black'
+        -100
+      when 'white'
+        -90
+      when 'red'
+        -60
+      else
+        0
+    end
+end
+
 
 @hots.each { |item|
 	t = Thread.new {
