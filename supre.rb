@@ -30,14 +30,11 @@ def buy(url, profile, driver)
   sleep 1
   submit_btn.click
 
-  # driver.execute_script "window.open('_blank', 'payment')"
-  # driver.switch_to.window 'payment'
+  driver.execute_script "window.open('_blank', 'payment')"
+  driver.switch_to.window 'payment'
   driver.get "http://supremenewyork.com/checkout"
 
   # auto-fill---------------------------
-  # option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
-  # option_country.click
-
   input_form = driver.execute_script("
             var credit_info = ['#{profile[:name]}', 
                   '#{profile[:email]}', 
