@@ -1,6 +1,5 @@
-@hots = [{:title => "Fuck You Sweater", :cat => 'tops_sweaters'},
-		{:title => "Fuck You Belt", :cat => 'accessories'}]
+# @hots = [{:title => "Semen Old Skool", :cat => 'shoes'}]
 
-# @hots = [{:title => "Leather Front Polo", :cat => 'tops_sweaters'},
+@hots = [{:title => "Boxer Briefs", :cat => 'accessories'}]
 # {:title => "Crew Socks", :cat => 'accessories'},
 # {:title => "Tagless Tees", :cat => 'accessories'}]

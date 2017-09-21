@@ -10,21 +10,8 @@ def buy(url, profile, driver)
       return 'fail'
   end 
 
-  options = driver.find_elements(:tag_name, "option")
-  unless options.nil?
-    options.each_with_index do |opt, index| # check size available
-        if opt.text.downcase == "small"
-          next_size = options[index+1].text
-          if next_size.downcase == "medium" # check if next size is medium
-            options[index + 1].click
-          end
-
-          break
-        elsif opt.text.downcase == "xlarge"
-          return 'fail'
-        end
-      end
-  end
+   # driver.find_element(:xpath, "//option[text()[contains(.,'8.5')]]").click
+   driver.find_element(:xpath, "//option[text()[contains(.,'Small')]]").click
 
   #proceed to checkout---------------------------
   sleep 1
