@@ -33,10 +33,8 @@ def search(title, category)
 		end
 
 		links = []
-		begin
-			links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
-			found = true
-
+		links = driver.find_elements(:xpath, "//a[text()[contains(.,'#{title}')]]")
+		found = true
 			if links.length == 0
 				found = false
 				p "cant find #{title} yet"

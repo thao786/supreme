@@ -1,0 +1,11 @@
+$('[name="order[billing_name]"]').val('THAO PHUONG NGUYEN');
+$('[name="order[email]"]').val('roseskindergarten@gmail.com');
+$('[name="order[tel]"]').val('9059651995');
+$('[name="order[billing_address]"]').val('505 West 37th St, apt 29C');
+$('[name="order[billing_zip]').val('10018');
+$('[name="order[billing_city]"]').val('New York');
+$('[name="credit_card[cnb]').val('4505530033547942');
+$('[name="credit_card[vval]"]').val('827');
+$('[name="credit_card[month]').val('12');
+$('[name="credit_card[year]"]').val('2019');
+$('.icheckbox_minimal').addClass('checked');
