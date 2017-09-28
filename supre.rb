@@ -10,8 +10,8 @@ def buy(url, profile, driver)
       return 'fail'
   end 
 
-   # driver.find_element(:xpath, "//option[text()[contains(.,'8.5')]]").click
-   driver.find_element(:xpath, "//option[text()[contains(.,'Small')]]").click
+   driver.find_element(:xpath, "//option[text()[contains(.,'5')]]").click
+   # driver.find_element(:xpath, "//option[text()[contains(.,'Small')]]").click
 
   #proceed to checkout---------------------------
   sleep 1
@@ -19,11 +19,13 @@ def buy(url, profile, driver)
 
   # driver.execute_script "window.open('_blank', 'payment')"
   # driver.switch_to.window 'payment'
-  driver.get "http://supremenewyork.com/checkout"
+  driver.get "http://supremenewyork.com/checkout"  
+  sleep 1
+
 
   # auto-fill---------------------------
-  # option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
-  # option_country.click
+  option_country = driver.find_element(:xpath, "//option[@value='CANADA']")
+  option_country.click
 
   input_form = driver.execute_script("
             var credit_info = ['#{profile[:name]}', 
