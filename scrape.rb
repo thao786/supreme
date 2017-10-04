@@ -11,7 +11,8 @@ require './data.rb'
 
 @base_url = 'http://www.supremenewyork.com/shop/all/'
 @threads = []
-@colors = ['black', 'white', 'red']
+@colors = ['black', 'red']
+@time = 1507201200
 
 def search(title, category)
 	found = false
@@ -22,6 +23,11 @@ def search(title, category)
 
 	driver.execute_script "window.open('_blank', 'buy')"
     driver.switch_to.window 'buy'
+
+    while Time.now.to_i < @time
+    	p 'not time yet. sleep more'
+    	sleep 1
+    end
 
 	while found == false
 		begin
@@ -67,7 +73,7 @@ def search(title, category)
 					rescue
 					    p "buy #{title} : #{item[:color]} failed"
 					    sleep 1
-					end 
+					end
 				end
 			}
 		end
@@ -90,11 +96,11 @@ end
 
 def score(x)
 	case x[:color].downcase
-      when 'black'
+      when 'red'
         -100
       when 'white'
         -90
-      when 'red'
+      when 'black'
         -60
       else
         0

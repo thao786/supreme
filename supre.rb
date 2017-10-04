@@ -8,22 +8,17 @@ def buy(url, profile, driver)
   rescue  
       p 'sold out'
       return 'fail'
-  end 
+  end
 
   options = driver.find_elements(:tag_name, "option")
   unless options.nil?
     options.each_with_index do |opt, index| # check size available
         if opt.text.downcase == "small"
-          next_size = options[index+1].text
-          if next_size.downcase == "medium" # check if next size is medium
-            options[index + 1].click
-          end
-
           break
-        elsif opt.text.downcase == "xlarge"
+        else
           return 'fail'
         end
-      end
+    end
   end
 
   #proceed to checkout---------------------------
