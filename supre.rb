@@ -6,7 +6,6 @@ def buy(url, profile, driver)
   begin
     submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
   rescue  
-      p 'sold out'
       return 'fail cuz sold out'
   end 
 
@@ -15,11 +14,7 @@ def buy(url, profile, driver)
   unless options.nil?
     options.each_with_index do |opt, index| # check size available
         if opt.text.downcase == "small"
-          next_size = options[index+1].text
-          if next_size.downcase == "medium" # check if next size is medium
-            options[index + 1].click
-          end
-
+          options[index + 1].click
           break
         elsif opt.text.downcase == "xlarge"
           return 'fail'
