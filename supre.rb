@@ -10,31 +10,19 @@ def buy(url, profile, driver)
   end 
 
   options = driver.find_elements(:tag_name, "option")
-  # options[0].click
   unless options.nil?
     options.each_with_index do |opt, index| # check size available
         if opt.text.downcase == "small"
-          options[index + 1].click
+          opt.click
           break
-        elsif opt.text.downcase == "xlarge"
+        elsif opt.text.downcase == "medium"
+          opt.click
+          break
+        else
           return 'fail'
         end
-      end
+    end
   end
-
-  # unless options.nil?
-  #   options.each_with_index do |opt, index| # check size available
-  #       if opt.text.downcase == "small"
-  #         opt.click
-  #         break
-  #       elsif opt.text.downcase == "medium"
-  #         opt.click
-  #         break
-  #       else
-  #         return 'fail'
-  #       end
-  #   end
-  # end
 
 
   #proceed to checkout---------------------------
