@@ -7,10 +7,11 @@ def buy(url, profile, driver)
     submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
   rescue  
       p 'sold out'
-      return 'fail'
+      return 'fail cuz sold out'
   end 
 
   options = driver.find_elements(:tag_name, "option")
+  # options[0].click
   unless options.nil?
     options.each_with_index do |opt, index| # check size available
         if opt.text.downcase == "small"
@@ -26,12 +27,25 @@ def buy(url, profile, driver)
       end
   end
 
+  # unless options.nil?
+  #   options.each_with_index do |opt, index| # check size available
+  #       if opt.text.downcase == "small"
+  #         opt.click
+  #         break
+  #       elsif opt.text.downcase == "medium"
+  #         opt.click
+  #         break
+  #       else
+  #         return 'fail'
+  #       end
+  #   end
+  # end
+
+
   #proceed to checkout---------------------------
   sleep 1
   submit_btn.click
 
-  driver.execute_script "window.open('_blank', 'payment')"
-  driver.switch_to.window 'payment'
   driver.get "http://supremenewyork.com/checkout"
 
   # auto-fill---------------------------
@@ -67,6 +81,11 @@ def buy(url, profile, driver)
 
   process_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='process payment']") #fix this xpath for input
   process_btn.click
+
+  # sleep 1
+  # use_credit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='Use Store Credit']")
+  # use_credit_btn.click
+  # sleep 1
 
   puts 'hit enter when done: '
   gets

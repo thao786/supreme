@@ -11,7 +11,7 @@ require './data.rb'
 
 @base_url = 'http://www.supremenewyork.com/shop/all/'
 @threads = []
-@colors = ['black', 'white', 'red']
+@colors = ['black', 'red']
 
 def search(title, category)
 	found = false
@@ -90,11 +90,9 @@ end
 
 def score(x)
 	case x[:color].downcase
-      when 'black'
-        -100
-      when 'white'
-        -90
       when 'red'
+        -100
+      when 'black'
         -60
       else
         0
