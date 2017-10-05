@@ -11,7 +11,7 @@ require './data.rb'
 
 @base_url = 'http://www.supremenewyork.com/shop/all/'
 @threads = []
-@colors = ['black', 'red', 'olive']
+@colors = ['black', 'dark red', 'red', 'olive']
 @time = 1507215600
 
 def search(title, category)
@@ -100,6 +100,8 @@ def score(x)
         -100
       when 'red'
         -90
+      when 'dark red'
+    	-70
       when 'black'
         -60
       else
