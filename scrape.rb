@@ -12,7 +12,7 @@ require './data.rb'
 @base_url = 'http://www.supremenewyork.com/shop/all/'
 @threads = []
 @colors = ['black', 'grey', 'red', 'white']
-@time = 1507215600
+@time = 1507820400
 
 def search(title, category)
 	found = false
