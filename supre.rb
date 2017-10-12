@@ -4,43 +4,33 @@ def buy(url, profile, driver)
   driver.get url
 
   begin
-    submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
+    options = driver.find_elements(:tag_name, "option")
+    # submit_btn = driver.find_element(:xpath, "//input[@type='submit' and @value='add to cart']")
   rescue  
       return 'fail cuz sold out'
   end 
 
-  options = driver.find_elements(:tag_name, "option")
-  # options[0].click
   unless options.nil?
     options.each_with_index do |opt, index| # check size available
         if opt.text.downcase == "small"
+          options[index + 2].click
+          break
+        elsif opt.text.downcase == "medium"
           options[index + 1].click
           break
+        elsif opt.text.downcase == "large"
+          break
         elsif opt.text.downcase == "xlarge"
-          return 'fail'
+          break
         end
-      end
+    end
   end
-
-  # unless options.nil?
-  #   options.each_with_index do |opt, index| # check size available
-  #       if opt.text.downcase == "small"
-  #         opt.click
-  #         break
-  #       elsif opt.text.downcase == "medium"
-  #         opt.click
-  #         break
-  #       else
-  #         return 'fail'
-  #       end
-  #   end
-  # end
-
+puts 'at line 28 '
 
   #proceed to checkout---------------------------
-  sleep 1
-  submit_btn.click
-
+  # sleep 1
+  # submit_btn.click
+  driver.execute_script("document.getElementById('add-remove-buttons').firstChild.click();")
   driver.get "http://supremenewyork.com/checkout"
 
   # auto-fill---------------------------
@@ -88,4 +78,3 @@ def buy(url, profile, driver)
   'ok'
 end
 
-# buy("http://www.supremenewyork.com/shop/tops-sweaters/pdv31bow6/qczlpsyt1")
