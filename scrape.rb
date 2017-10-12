@@ -19,7 +19,7 @@ def search(title, category)
 	driver = Selenium::WebDriver.for :chrome
 
 	# sign into Google
-	# signinGG driver 
+	signinGG driver 
 
 	driver.execute_script "window.open('_blank', 'buy')"
     driver.switch_to.window 'buy'
