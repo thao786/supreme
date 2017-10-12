@@ -96,10 +96,6 @@ end
 
 def score(x)
 	case x[:color].downcase
-      when 'black'
-        -90
-      when 'camo'
-    	-70
       when 'Woodland camo'
         -60
       else
